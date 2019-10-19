@@ -11,4 +11,8 @@
   }
 </style>
 
+<svelte:head>
+  <title>Svelte App</title>
+</svelte:head>
+
 <h1>Hello {name}</h1>
