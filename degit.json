@@ -1,0 +1,9 @@
+[
+  {
+    "action": "remove",
+    "files": [
+      ".gitignore",
+      "README.md"
+    ]
+  }
+]

@@ -1,4 +1,4 @@
-## Mon gabarit personnel pour créer des applications
+## Mon gabarit personnel pour créer des applications Svelte.js
 
 ### Utilisation:
 

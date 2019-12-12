@@ -1,8 +1,10 @@
-import svelte from 'rollup-plugin-svelte';
+import livereload from 'rollup-plugin-livereload';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import svelte from 'rollup-plugin-svelte';
+import css from 'rollup-plugin-css-only';
+import buble from 'rollup-plugin-buble';
 
 const svelteConfig = require('./svelte.config');
 
@@ -14,25 +16,28 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: 'public/bundle.js'
+    file: 'public/bundle.js',
   },
   plugins: [
     svelte({
       dev: !production,
-      css: (css) => {
+      css: css => {
         css.write('public/bundle.css');
       },
-      ...svelteConfig
+      ...svelteConfig,
     }),
     resolve({
       browser: true,
-      dedupe: (importee) => importee === 'svelte' || importee.startsWith('svelte/')
+      dedupe: importee =>
+        importee === 'svelte' || importee.startsWith('svelte/'),
     }),
+    css({ output: 'public/bundle2.css' }),
     commonjs(),
     !production && livereload('public'),
-    production && terser()
+    production && buble(),
+    production && terser(),
   ],
   watch: {
-    clearScreen: false
-  }
+    clearScreen: false,
+  },
 };
