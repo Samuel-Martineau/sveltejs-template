@@ -1,6 +1,6 @@
-## Mon gabarit personnel pour créer des applications Svelte.js
+# Mon gabarit personnel pour créer des applications Svelte.js
 
-### Utilisation:
+## Utilisation
 
 1. `$ degit Samuel-Martineau/sveltejs-template PROJECT_NAME`
 2. `$ cd PROJECT_NAME`
