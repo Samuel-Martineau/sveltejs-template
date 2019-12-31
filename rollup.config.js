@@ -1,14 +1,14 @@
-import livereload from 'rollup-plugin-livereload';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import svelte from 'rollup-plugin-svelte';
-import css from 'rollup-plugin-css-only';
 import buble from 'rollup-plugin-buble';
-import { minify } from 'html-minifier';
+import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy';
-const path = require('path');
-const fs = require('fs');
+import css from 'rollup-plugin-css-only';
+import fs from 'fs';
+import livereload from 'rollup-plugin-livereload';
+import { minify } from 'html-minifier';
+import path from 'path';
+import resolve from 'rollup-plugin-node-resolve';
+import svelte from 'rollup-plugin-svelte';
+import { terser } from 'rollup-plugin-terser';
 
 const svelteConfig = require('./svelte.config');
 
@@ -18,7 +18,7 @@ const minifyHtml = (input, output, options) => ({
   generateBundle() {
     fs.writeFileSync(
       output,
-      minify(fs.readFileSync(input).toString(), options)
+      minify(fs.readFileSync(input).toString(), options),
     );
   },
 });
@@ -44,6 +44,7 @@ export default {
       dedupe: importee =>
         importee === 'svelte' || importee.startsWith('svelte/'),
     }),
+    fs.writeFileSync(path.join(__dirname, 'public', 'bundle2.css'), ''),
     css({ output: path.join(__dirname, 'public', 'bundle2.css') }),
     copy({
       targets: [
@@ -78,7 +79,7 @@ export default {
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true,
           useShortDoctype: true,
-        }
+        },
       ),
     production && buble(),
     production && terser(),
