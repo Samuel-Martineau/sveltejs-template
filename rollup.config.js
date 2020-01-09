@@ -1,12 +1,12 @@
 import buble from 'rollup-plugin-buble';
 import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy';
-import css from 'rollup-plugin-css-only';
 import fs from 'fs';
 import livereload from 'rollup-plugin-livereload';
 import { minify } from 'html-minifier';
 import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
+import scss from 'rollup-plugin-scss';
 import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
 
@@ -34,18 +34,21 @@ export default {
   plugins: [
     svelte({
       dev: !production,
-      css: css => {
+      css: (css) => {
         css.write(path.join(__dirname, 'public', 'bundle.css'));
       },
       ...svelteConfig,
     }),
     resolve({
       browser: true,
-      dedupe: importee =>
+      dedupe: (importee) =>
         importee === 'svelte' || importee.startsWith('svelte/'),
     }),
     fs.writeFileSync(path.join(__dirname, 'public', 'bundle2.css'), ''),
-    css({ output: path.join(__dirname, 'public', 'bundle2.css') }),
+    scss({
+      output: path.join(__dirname, 'public', 'bundle2.css'),
+      outputStyle: production ? 'compressed' : '',
+    }),
     copy({
       targets: [
         {

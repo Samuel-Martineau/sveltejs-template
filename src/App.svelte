@@ -1,14 +1,9 @@
 <script>
-  export let name = '';
+
 </script>
 
-<style lang="scss" global>
-  h1 {
-    color: purple;
-    &:hover {
-      color: blue;
-    }
-  }
+<style lang="scss">
+
 </style>
 
-<h1>Hello {name} !</h1>
+<h1>Hello world !</h1>

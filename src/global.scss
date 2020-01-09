@@ -1,0 +1,8 @@
+@import '../node_modules/reset-css/sass/reset';
+
+h1 {
+  color: purple;
+  &:hover {
+    color: blue;
+  }
+}
